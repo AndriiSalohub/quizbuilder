@@ -13,7 +13,61 @@ export const getAllQuizzes = async () => {
     ],
   });
 
-  console.log(quizzes);
-
   return quizzes;
+};
+
+interface CreateQuizInput {
+  title: string;
+  questions: {
+    text: string;
+    typeId: string;
+    options?: { text: string; isCorrect: boolean }[];
+    correctAnswer?: string;
+  }[];
+}
+
+export const createQuiz = async (data: CreateQuizInput) => {
+  const { title, questions } = data;
+
+  try {
+    const quiz = await Quiz.create({
+      title,
+    });
+
+    for (const q of questions) {
+      const questionType = await QuestionType.findOne({
+        where: { id: q.typeId },
+      });
+
+      if (!questionType) {
+        throw new Error(`Invalid question type: ${q.typeId}`);
+      }
+
+      const question = await Question.create({
+        quizId: quiz.id,
+        typeId: questionType.id,
+        text: q.text,
+      });
+
+      if (q.typeId === "input" && q.correctAnswer !== undefined) {
+        await Option.create({
+          questionId: question.id,
+          text: q.correctAnswer,
+          isCorrect: true,
+        });
+      } else if (q.options?.length) {
+        for (const opt of q.options) {
+          await Option.create({
+            questionId: question.id,
+            text: opt.text,
+            isCorrect: opt.isCorrect,
+          });
+        }
+      }
+    }
+
+    return quiz;
+  } catch (error) {
+    throw error;
+  }
 };

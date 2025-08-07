@@ -10,3 +10,13 @@ export const getAllQuizzes = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to fetch quizzes" });
   }
 };
+
+export const createQuiz = async (req: Request, res: Response) => {
+  try {
+    const quiz = await quizService.createQuiz(req.body);
+    res.status(201).json(quiz);
+  } catch (error) {
+    console.error("Error creating quiz:", error);
+    res.status(500).json({ error: "Failed to create quiz" });
+  }
+};

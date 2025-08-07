@@ -31,7 +31,7 @@ const QuizListItem = ({ quiz }: Props) => {
   );
 
   return (
-    <Card className="border-gray-700 bg-black text-white shadow-md transition-shadow duration-200 hover:shadow-lg">
+    <Card className="border-gray-700 bg-gray-900 text-white shadow-sm transition-shadow duration-200 hover:shadow-md">
       <CardHeader>
         <CardTitle className="text-xl font-semibold">{quiz.title}</CardTitle>
         <CardDescription className="text-gray-400">
