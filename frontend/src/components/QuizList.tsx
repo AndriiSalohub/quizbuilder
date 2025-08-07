@@ -1,9 +1,9 @@
-import { useQuizStore } from "@/store/quizStore";
+import { useQuizzesStore } from "@/store/quizzesStore";
 import { useEffect } from "react";
 import QuizListItem from "./QuizListItem";
 
 const QuizList = () => {
-  const { quizzes, fetchQuizzes } = useQuizStore();
+  const { quizzes, fetchQuizzes } = useQuizzesStore();
 
   useEffect(() => {
     fetchQuizzes();

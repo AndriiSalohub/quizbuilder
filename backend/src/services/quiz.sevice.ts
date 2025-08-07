@@ -16,6 +16,23 @@ export const getAllQuizzes = async () => {
   return quizzes;
 };
 
+export const getQuiz = async (id: string) => {
+  const quiz = await Quiz.findByPk(id, {
+    include: [
+      {
+        model: Question,
+        include: [{ model: Option }, { model: QuestionType }],
+      },
+    ],
+  });
+
+  if (!quiz) {
+    throw new Error(`Quiz with id ${id} not found`);
+  }
+
+  return quiz;
+};
+
 interface CreateQuizInput {
   title: string;
   questions: {
@@ -49,7 +66,7 @@ export const createQuiz = async (data: CreateQuizInput) => {
         text: q.text,
       });
 
-      if (q.typeId === "input" && q.correctAnswer !== undefined) {
+      if (parseInt(q.typeId) === 3 && q.correctAnswer !== undefined) {
         await Option.create({
           questionId: question.id,
           text: q.correctAnswer,

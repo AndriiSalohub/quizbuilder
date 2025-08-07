@@ -1,4 +1,4 @@
-import AddQuizForm from "@/components/AddQuizForm";
+import CreateQuizPage from "@/pages/CreateQuizPage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/create")({
@@ -6,5 +6,5 @@ export const Route = createFileRoute("/create")({
 });
 
 function RouteComponent() {
-  return <AddQuizForm />;
+  return <CreateQuizPage />;
 }

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Plus, Trash } from "lucide-react";
 import axios from "axios";
-import { useQuizStore } from "@/store/quizStore";
+import { useQuizzesStore } from "@/store/quizzesStore";
 import toast, { Toaster } from "react-hot-toast";
 
 const questionTypes = [
@@ -36,7 +36,7 @@ type ValidationErrors = {
   }[];
 };
 
-const AddQuizForm = () => {
+const CreateQuizForm = () => {
   const [title, setTitle] = useState("");
   const [questions, setQuestions] = useState<QuestionForm[]>([
     {
@@ -46,8 +46,9 @@ const AddQuizForm = () => {
     },
   ]);
   const [errors, setErrors] = useState<ValidationErrors>({ questions: [{}] });
+  console.log(questions);
 
-  const { fetchQuizzes } = useQuizStore();
+  const { fetchQuizzes } = useQuizzesStore();
 
   const validateForm = (): ValidationErrors => {
     const newErrors: ValidationErrors = {
@@ -416,4 +417,4 @@ const AddQuizForm = () => {
   );
 };
 
-export default AddQuizForm;
+export default CreateQuizForm;

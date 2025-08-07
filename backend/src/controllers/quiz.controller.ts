@@ -11,6 +11,17 @@ export const getAllQuizzes = async (req: Request, res: Response) => {
   }
 };
 
+export const getQuiz = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const quiz = await quizService.getQuiz(id);
+    res.json(quiz);
+  } catch (error) {
+    console.error("Error fetching quiz:", error);
+    res.status(404).json({ error: "Quiz not found" });
+  }
+};
+
 export const createQuiz = async (req: Request, res: Response) => {
   try {
     const quiz = await quizService.createQuiz(req.body);

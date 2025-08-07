@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import type { Quiz } from "@/types/quizTypes";
 import { Trash2 } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 type Props = {
   quiz: Quiz;
@@ -47,9 +48,11 @@ const QuizListItem = ({ quiz }: Props) => {
       </CardContent>
 
       <CardFooter className="justify-end">
-        <Button className="cursor-pointer bg-white text-black transition-all duration-300 hover:bg-gray-200">
-          View Details
-        </Button>
+        <Link to="/quizzes/$quizId" params={{ quizId: quiz.id.toString() }}>
+          <Button className="cursor-pointer bg-white text-black transition-all duration-300 hover:bg-gray-200">
+            View Details
+          </Button>
+        </Link>
         <Dialog>
           <DialogTrigger asChild>
             <Button
