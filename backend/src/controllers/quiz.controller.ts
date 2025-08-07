@@ -31,3 +31,20 @@ export const createQuiz = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to create quiz" });
   }
 };
+
+export const deleteQuiz = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    console.log("aaaaaa");
+    const result = await quizService.deleteQuiz(id);
+    res.json(result);
+  } catch (error) {
+    console.error("Error deleting quiz:", error);
+    if (error instanceof Error && error.message.includes("not found")) {
+      res.status(404).json({ error: "Quiz not found" });
+    } else {
+      res.status(500).json({ error: "Failed to delete quiz" });
+    }
+  }
+};

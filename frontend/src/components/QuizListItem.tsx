@@ -20,16 +20,31 @@ import { Button } from "@/components/ui/button";
 import type { Quiz } from "@/types/quizTypes";
 import { Trash2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { useQuizzesStore } from "@/store/quizzesStore";
+import { useState } from "react";
 
 type Props = {
   quiz: Quiz;
 };
 
 const QuizListItem = ({ quiz }: Props) => {
+  const deleteQuiz = useQuizzesStore(state => state.deleteQuiz);
+  const [isDeleting, setIsDeleting] = useState(false);
   const questionCount = quiz.questions.length;
   const uniqueTypes = Array.from(
     new Set(quiz.questions.map(q => q.questionType.name))
   );
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    try {
+      await deleteQuiz(quiz.id.toString());
+    } catch (error) {
+      console.error("Failed to delete quiz", error);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <Card className="border-gray-700 bg-gray-900 text-white shadow-sm transition-shadow duration-200 hover:shadow-md">
@@ -72,8 +87,13 @@ const QuizListItem = ({ quiz }: Props) => {
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
-              <Button type="submit" className="cursor-pointer gap-2">
-                Delete
+              <Button
+                type="button"
+                className="cursor-pointer gap-2 bg-red-600 text-white hover:bg-red-700"
+                onClick={handleDelete}
+                disabled={isDeleting}
+              >
+                {isDeleting ? "Deleting..." : "Delete"}
               </Button>
               <DialogClose asChild>
                 <Button variant="outline" className="cursor-pointer gap-2">

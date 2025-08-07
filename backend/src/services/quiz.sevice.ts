@@ -88,3 +88,38 @@ export const createQuiz = async (data: CreateQuizInput) => {
     throw error;
   }
 };
+
+export const deleteQuiz = async (id: string) => {
+  try {
+    const quiz = await Quiz.findByPk(id, {
+      include: [
+        {
+          model: Question,
+          include: [{ model: Option }],
+        },
+      ],
+    });
+
+    if (!quiz) {
+      throw new Error(`Quiz with id ${id} not found`);
+    }
+
+    for (const question of quiz.questions) {
+      await Option.destroy({
+        where: { questionId: question.id },
+      });
+    }
+
+    await Question.destroy({
+      where: { quizId: id },
+    });
+
+    await Quiz.destroy({
+      where: { id },
+    });
+
+    return { message: `Quiz with id ${id} has been deleted successfully` };
+  } catch (error) {
+    throw error;
+  }
+};
