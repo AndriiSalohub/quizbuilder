@@ -10,7 +10,7 @@
     "format:check": "prettier --check \"src/**/*.{ts,js,json}\"",
     "lint-and-format": "npm run lint:fix && npm run format",
     "check": "npm run lint && npm run format:check",
-    "start": "dotenv -e .env.production -- bun dist/index.js",
+    "start": "dotenv -e .env.production -- node dist/index.js",
     "dev": "dotenv -e .env.development -- nodemon --exec tsx src/index.ts",
     "build": "tsc",
     "clean": "rm -rf dist"
