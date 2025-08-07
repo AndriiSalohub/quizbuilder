@@ -10,14 +10,16 @@
     "format:check": "prettier --check \"src/**/*.{ts,js,json}\"",
     "lint-and-format": "npm run lint:fix && npm run format",
     "check": "npm run lint && npm run format:check",
-    "start": "dotenv -e .production.env -- bun dist/index.js",
-    "dev": "dotenv -e .development.env -- nodemon --exec tsx src/index.ts",
+    "start": "dotenv -e .env.production -- bun dist/index.js",
+    "dev": "dotenv -e .env.development -- nodemon --exec tsx src/index.ts",
     "build": "tsc",
     "clean": "rm -rf dist"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
     "@types/bun": "latest",
+    "@types/express": "^5.0.3",
+    "@types/pg": "^8.15.5",
     "@typescript-eslint/eslint-plugin": "^8.39.0",
     "@typescript-eslint/parser": "^8.39.0",
     "dotenv-cli": "^10.0.0",
@@ -34,6 +36,11 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
-    "dotenv": "^17.2.1"
+    "@types/cors": "^2.8.19",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "pg": "^8.16.3",
+    "sequelize": "^6.37.7"
   }
 }

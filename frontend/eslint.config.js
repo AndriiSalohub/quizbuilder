@@ -1,21 +1,21 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import tseslint from 'typescript-eslint';
-import prettier from 'eslint-config-prettier';
-import prettierPlugin from 'eslint-plugin-prettier';
+import js from "@eslint/js";
+import globals from "globals";
+import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import tseslint from "typescript-eslint";
+import prettier from "eslint-config-prettier";
+import prettierPlugin from "eslint-plugin-prettier";
 
 export default tseslint.config([
   {
-    ignores: ['dist', 'build', 'node_modules', 'coverage'],
+    ignores: ["dist", "build", "node_modules", "coverage"],
   },
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2020,
-      sourceType: 'module',
+      sourceType: "module",
       globals: globals.browser,
       parserOptions: {
         ecmaFeatures: {
@@ -25,9 +25,9 @@ export default tseslint.config([
     },
     plugins: {
       react,
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-      '@typescript-eslint': tseslint.plugin,
+      "react-hooks": reactHooks,
+      "react-refresh": reactRefresh,
+      "@typescript-eslint": tseslint.plugin,
       prettier: prettierPlugin,
     },
     extends: [
@@ -37,19 +37,19 @@ export default tseslint.config([
       prettier,
     ],
     rules: {
-      'prettier/prettier': 'error',
-      'react-refresh/only-export-components': [
-        'warn',
+      "prettier/prettier": "error",
+      "react-refresh/only-export-components": [
+        "warn",
         { allowConstantExport: true },
       ],
-      'react/prop-types': 'off',
-      'react/react-in-jsx-scope': 'off',
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
     },
     settings: {
       react: {
-        version: 'detect',
+        version: "detect",
       },
     },
   },
